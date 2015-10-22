@@ -1102,7 +1102,7 @@ void ebt_check_for_loops(struct ebt_u_replace *replace)
 			/* check if we've dealt with this chain already */
 			if (entries2->hook_mask & (1<<i))
 				goto letscontinue;
-			entries2->hook_mask |= entries->hook_mask;
+			entries2->hook_mask |= entries->hook_mask & ~(1 << NF_BR_NUMHOOKS);
 			/* Jump to the chain, make sure we know how to get back */
 			stack[sp].chain_nr = chain_nr;
 			stack[sp].n = j;
