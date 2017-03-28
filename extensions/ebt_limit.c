@@ -41,7 +41,7 @@ static int string_to_number(const char *s, unsigned int min, unsigned int max,
 #define ARG_LIMIT		'1'
 #define ARG_LIMIT_BURST		'2'
 
-static struct option opts[] =
+static const struct option opts[] =
 {
 	{ "limit",		required_argument, 0, ARG_LIMIT },
 	{ "limit-burst",	required_argument, 0, ARG_LIMIT_BURST },

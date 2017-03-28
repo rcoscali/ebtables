@@ -23,7 +23,7 @@ static int s_sub_supplied, d_sub_supplied;
 #define NAT_D_SUB '2'
 #define NAT_S_TARGET '3'
 #define NAT_D_TARGET '3'
-static struct option opts_s[] =
+static const struct option opts_s[] =
 {
 	{ "isnat-list"     , required_argument, 0, NAT_S },
 	{ "isnat-sub"      , required_argument, 0, NAT_S_SUB },
@@ -31,7 +31,7 @@ static struct option opts_s[] =
 	{ 0 }
 };
 
-static struct option opts_d[] =
+static const struct option opts_d[] =
 {
 	{ "idnat-list"     , required_argument, 0, NAT_D },
 	{ "idnat-sub"      , required_argument, 0, NAT_D_SUB },

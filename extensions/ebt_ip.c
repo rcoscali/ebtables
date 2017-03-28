@@ -25,7 +25,7 @@
 #define IP_SPORT  '5'
 #define IP_DPORT  '6'
 
-static struct option opts[] =
+static const struct option opts[] =
 {
 	{ "ip-source"           , required_argument, 0, IP_SOURCE },
 	{ "ip-src"              , required_argument, 0, IP_SOURCE },
