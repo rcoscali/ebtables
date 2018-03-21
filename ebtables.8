@@ -810,6 +810,26 @@ The hello time timer (0-65535) range.
 .TP
 .BR "--stp-forward-delay " "[!] [\fIdelay\fP][:\fIdelay\fP]"
 The forward delay timer (0-65535) range.
+.SS string
+This module matches on a given string using some pattern matching strategy.
+.TP
+.BR "--string-algo " "\fIalgorithm\fP"
+The pattern matching strategy. (bm = Boyer-Moore, kmp = Knuth-Pratt-Morris)
+.TP
+.BR "--string-from " "\fIoffset\fP"
+The lowest offset from which a match can start. (default: 0)
+.TP
+.BR "--string-to " "\fIoffset\fP"
+The highest offset from which a match can start. (default: size of frame)
+.TP
+.BR "--string " "[!] \fIpattern\fP"
+Matches the given pattern.
+.TP
+.BR "--string-hex " "[!] \fIpattern\fP"
+Matches the given pattern in hex notation, e.g. '|0D 0A|', '|0D0A|', 'www|09|netfilter|03|org|00|'
+.TP
+.BR "--string-icase"
+Ignore case when searching.
 .SS vlan
 Specify 802.1Q Tag Control Information fields.
 The protocol must be specified as

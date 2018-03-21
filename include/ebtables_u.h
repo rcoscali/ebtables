@@ -144,6 +144,7 @@ struct ebt_u_entry
 struct ebt_u_match
 {
 	char name[EBT_FUNCTION_MAXNAMELEN];
+	uint8_t revision;
 	/* size of the real match data */
 	unsigned int size;
 	void (*help)(void);

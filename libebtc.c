@@ -272,6 +272,7 @@ void ebt_reinit_extensions()
 			if (!m->m)
 				ebt_print_memory();
 			strcpy(m->m->u.name, m->name);
+			m->m->u.revision = m->revision;
 			m->m->match_size = EBT_ALIGN(m->size);
 			m->used = 0;
 		}
@@ -550,8 +551,10 @@ int ebt_check_rule_exists(struct ebt_u_replace *replace,
 		while (m_l) {
 			m = (struct ebt_u_match *)(m_l->m);
 			m_l2 = u_e->m_list;
-			while (m_l2 && strcmp(m_l2->m->u.name, m->m->u.name))
+			while (m_l2 && (strcmp(m_l2->m->u.name, m->m->u.name) ||
+			       m_l2->m->u.revision != m->m->u.revision)) {
 				m_l2 = m_l2->next;
+			}
 			if (!m_l2 || !m->compare(m->m, m_l2->m))
 				goto letscontinue;
 			j++;
@@ -1209,6 +1212,7 @@ void ebt_register_match(struct ebt_u_match *m)
 	if (!m->m)
 		ebt_print_memory();
 	strcpy(m->m->u.name, m->name);
+	m->m->u.revision = m->revision;
 	m->m->match_size = EBT_ALIGN(m->size);
 	m->init(m->m);
 
