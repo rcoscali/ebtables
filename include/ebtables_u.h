@@ -25,7 +25,7 @@
 #define EBTABLES_U_H
 #include <netinet/in.h>
 #include <netinet/ether.h>
-#include <linux/netfilter_bridge/ebtables.h>
+#include <ebtables.h>
 #include <linux/netfilter/x_tables.h>
 
 #ifndef IPPROTO_SCTP
@@ -338,6 +338,8 @@ _ch;})
 #define ebt_print_error(format,args...) __ebt_print_error(format, ##args);
 #define ebt_print_error2(format, args...) do {__ebt_print_error(format, ##args); \
    return -1;} while (0)
+#define ebt_print_error3(format, args...) do {__ebt_print_error(format, ##args); \
+   return;} while (0)
 #define ebt_check_option2(flags,mask)	\
 ({ebt_check_option(flags,mask);		\
  if (ebt_errormsg[0] != '\0')		\

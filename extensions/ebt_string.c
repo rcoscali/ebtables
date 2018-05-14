@@ -71,7 +71,7 @@ static void parse_string(const char *s, struct xt_string_info *info)
 		info->patlen = strnlen(s, XT_STRING_MAX_PATTERN_SIZE);
 		return;
 	}
-	ebt_print_error2("STRING too long \"%s\"", s);
+	ebt_print_error3("STRING too long \"%s\"", s);
 }
 
 static void parse_hex_string(const char *s, struct xt_string_info *info)
@@ -83,14 +83,14 @@ static void parse_hex_string(const char *s, struct xt_string_info *info)
 	slen = strlen(s);
 
 	if (slen == 0) {
-		ebt_print_error2("STRING must contain at least one char");
+		ebt_print_error3("STRING must contain at least one char");
 	}
 
 	while (i < slen) {
 		if (s[i] == '\\' && !hex_f) {
 			literal_f = 1;
 		} else if (s[i] == '\\') {
-			ebt_print_error2("Cannot include literals in hex data");
+			ebt_print_error3("Cannot include literals in hex data");
 		} else if (s[i] == '|') {
 			if (hex_f)
 				hex_f = 0;
@@ -108,28 +108,28 @@ static void parse_hex_string(const char *s, struct xt_string_info *info)
 
 		if (literal_f) {
 			if (i+1 >= slen) {
-				ebt_print_error2("Bad literal placement at end of string");
+				ebt_print_error3("Bad literal placement at end of string");
 			}
 			info->pattern[sindex] = s[i+1];
 			i += 2;  /* skip over literal char */
 			literal_f = 0;
 		} else if (hex_f) {
 			if (i+1 >= slen) {
-				ebt_print_error2("Odd number of hex digits");
+				ebt_print_error3("Odd number of hex digits");
 			}
 			if (i+2 >= slen) {
 				/* must end with a "|" */
-				ebt_print_error2("Invalid hex block");
+				ebt_print_error3("Invalid hex block");
 			}
 			if (! isxdigit(s[i])) /* check for valid hex char */
-				ebt_print_error2("Invalid hex char '%c'", s[i]);
+				ebt_print_error3("Invalid hex char '%c'", s[i]);
 			if (! isxdigit(s[i+1])) /* check for valid hex char */
-				ebt_print_error2("Invalid hex char '%c'", s[i+1]);
+				ebt_print_error3("Invalid hex char '%c'", s[i+1]);
 			hextmp[0] = s[i];
 			hextmp[1] = s[i+1];
 			hextmp[2] = '\0';
 			if (! sscanf(hextmp, "%x", &schar))
-				ebt_print_error2("Invalid hex char `%c'", s[i]);
+				ebt_print_error3("Invalid hex char `%c'", s[i]);
 			info->pattern[sindex] = (char) schar;
 			if (s[i+2] == ' ')
 				i += 3;  /* spaces included in the hex block */
@@ -140,7 +140,7 @@ static void parse_hex_string(const char *s, struct xt_string_info *info)
 			i++;
 		}
 		if (sindex > XT_STRING_MAX_PATTERN_SIZE)
-			ebt_print_error2("STRING too long \"%s\"", s);
+			ebt_print_error3("STRING too long \"%s\"", s);
 		sindex++;
 	}
 	info->patlen = sindex;
@@ -150,9 +150,6 @@ static int parse(int c, char **argv, int argc, const struct ebt_u_entry *entry,
 		 unsigned int *flags, struct ebt_entry_match **match)
 {
 	struct xt_string_info *info = (struct xt_string_info *)(*match)->data;
-	int i;
-	int input_string_length = 0;
-	char buf[3] = { 0 };
 
 	switch (c) {
 	case STRING_FROM:
@@ -206,7 +203,7 @@ static void final_check(const struct ebt_u_entry *entry,
 	struct xt_string_info *info = (struct xt_string_info *)match->data;
 
 	if (info->to_offset < info->from_offset) {
-		ebt_print_error2("'to' offset should not be less than 'from' "
+		ebt_print_error3("'to' offset should not be less than 'from' "
 				 "offset");
 	}
 }
