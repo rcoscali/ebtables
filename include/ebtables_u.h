@@ -25,7 +25,7 @@
 #define EBTABLES_U_H
 #include <netinet/in.h>
 #include <netinet/ether.h>
-#include <ebtables.h>
+#include <linux/netfilter_bridge/ebtables.h>
 #include <linux/netfilter/x_tables.h>
 
 #ifndef IPPROTO_SCTP
