@@ -168,7 +168,9 @@ static int parse(int c, char **argv, int argc, const struct ebt_u_entry *entry,
 		ebt_check_option2(flags, OPT_STRING_ALGO);
 		if (ebt_check_inverse2(optarg))
 			ebt_print_error2("Unexpected `!' after --string-algo");
-		snprintf(info->algo, sizeof(info->algo), "%s", optarg);
+		if (snprintf(info->algo, sizeof(info->algo), "%s", optarg) >=
+				sizeof(info->algo))
+			ebt_print_error2("\"%s\" is truncated", info->algo);
 		break;
 	case STRING_ICASE:
 		ebt_check_option2(flags, OPT_STRING_ICASE);
