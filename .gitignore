@@ -1,0 +1,7 @@
+*.o
+*.so
+/ebtables
+/ebtables-restore
+/ebtablesd
+/ebtablesu
+/static
