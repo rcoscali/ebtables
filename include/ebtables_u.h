@@ -44,6 +44,8 @@
 #define EBT_ALIGN(s) (((s) + (EBT_MIN_ALIGN-1)) & ~(EBT_MIN_ALIGN-1))
 #define ERRORMSG_MAXLEN 128
 
+#define _INIT __attribute__((constructor)) _init
+
 struct ebt_u_entries
 {
 	int policy;

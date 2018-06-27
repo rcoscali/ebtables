@@ -116,39 +116,7 @@ daemon: ebtablesd ebtablesu
 # a little scripting for a static binary, making one for ebtables-restore
 # should be completely analogous
 static: extensions/ebt_*.c extensions/ebtable_*.c ebtables.c communication.c ebtables-standalone.c getethertype.c libebtc.c useful_functions.c
-	cp ebtables-standalone.c ebtables-standalone.c_ ; \
-	cp include/ebtables_u.h include/ebtables_u.h_ ; \
-	sed "s/ main(/ pseudomain(/" ebtables-standalone.c > ebtables-standalone.c__ ; \
-	mv ebtables-standalone.c__ ebtables-standalone.c ; \
-	printf "\nint main(int argc, char *argv[])\n{\n "  >> ebtables-standalone.c ; \
-	for arg in $(EXT_FUNC) \
-	; do \
-	sed s/_init/_$${arg}_init/ extensions/ebt_$${arg}.c > extensions/ebt_$${arg}.c_ ; \
-	mv extensions/ebt_$${arg}.c_ extensions/ebt_$${arg}.c ; \
-	printf "\t%s();\n" _$${arg}_init >> ebtables-standalone.c ; \
-	printf "extern void %s();\n" _$${arg}_init >> include/ebtables_u.h ; \
-	done ; \
-	for arg in $(EXT_TABLES) \
-	; do \
-	sed s/_init/_t_$${arg}_init/ extensions/ebtable_$${arg}.c > extensions/ebtable_$${arg}.c_ ; \
-	mv extensions/ebtable_$${arg}.c_ extensions/ebtable_$${arg}.c ; \
-	printf "\t%s();\n" _t_$${arg}_init >> ebtables-standalone.c ; \
-	printf "extern void %s();\n" _t_$${arg}_init >> include/ebtables_u.h ; \
-	done ; \
-	printf "\n\tpseudomain(argc, argv);\n\treturn 0;\n}\n" >> ebtables-standalone.c ;\
-	$(CC) $(CFLAGS) $(LDFLAGS) $(PROGSPECS) -o $@ $^ -I$(KERNEL_INCLUDES) -Iinclude ; \
-	for arg in $(EXT_FUNC) \
-	; do \
-	sed "s/ .*_init/ _init/" extensions/ebt_$${arg}.c > extensions/ebt_$${arg}.c_ ; \
-	mv extensions/ebt_$${arg}.c_ extensions/ebt_$${arg}.c ; \
-	done ; \
-	for arg in $(EXT_TABLES) \
-	; do \
-	sed "s/ .*_init/ _init/" extensions/ebtable_$${arg}.c > extensions/ebtable_$${arg}.c_ ; \
-	mv extensions/ebtable_$${arg}.c_ extensions/ebtable_$${arg}.c ; \
-	done ; \
-	mv ebtables-standalone.c_ ebtables-standalone.c ; \
-	mv include/ebtables_u.h_ include/ebtables_u.h
+	$(CC) $(CFLAGS) $(LDFLAGS) $(PROGSPECS) -o $@ $^ -I$(KERNEL_INCLUDES) -Iinclude
 
 tmp1:=$(shell printf $(BINDIR) | sed 's/\//\\\//g')
 tmp2:=$(shell printf $(SYSCONFIGDIR) | sed 's/\//\\\//g')
