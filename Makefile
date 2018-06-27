@@ -155,13 +155,13 @@ tmp2:=$(shell printf $(SYSCONFIGDIR) | sed 's/\//\\\//g')
 tmp3:=$(shell printf $(PIPE) | sed 's/\//\\\//g')
 .PHONY: scripts
 scripts: ebtables-save.in ebtables.sysv.in ebtables-config.in
-	sed -e 's/__EXEC_PATH__/$(tmp1)/g' <ebtables-save.in >ebtables-save_
+	sed -e 's/[@]sbindir@/$(tmp1)/g' <ebtables-save.in >ebtables-save_
 	mkdir -p $(DESTDIR)$(BINDIR)
 	install -m 0755 ebtables-save_ $(DESTDIR)$(BINDIR)/ebtables-save
-	sed -e 's/__EXEC_PATH__/$(tmp1)/g' -e 's/__SYSCONFIG__/$(tmp2)/g' <ebtables.sysv.in >ebtables.sysv_
+	sed -e 's/[@]sbindir@/$(tmp1)/g' -e 's/[@]sysconfigdir@/$(tmp2)/g' <ebtables.sysv.in >ebtables.sysv_
 	if [ "$(DESTDIR)" != "" ]; then mkdir -p $(DESTDIR)$(INITDIR); fi
 	if test -d $(DESTDIR)$(INITDIR); then install -m 0755 ebtables.sysv_ $(DESTDIR)$(INITDIR)/ebtables; fi
-	sed -e 's/__SYSCONFIG__/$(tmp2)/g' <ebtables-config >ebtables-config_
+	sed -e 's/[@]sysconfigdir@/$(tmp2)/g' <ebtables-config >ebtables-config_
 	if [ "$(DESTDIR)" != "" ]; then mkdir -p $(DESTDIR)$(SYSCONFIGDIR); fi
 	if test -d $(DESTDIR)$(SYSCONFIGDIR); then install -m 0600 ebtables-config_ $(DESTDIR)$(SYSCONFIGDIR)/ebtables-config; fi
 	rm -f ebtables-save_ ebtables.sysv_ ebtables-config_
@@ -169,7 +169,7 @@ scripts: ebtables-save.in ebtables.sysv.in ebtables-config.in
 tmp4:=$(shell printf $(LOCKFILE) | sed 's/\//\\\//g')
 $(MANDIR)/man8/ebtables.8: ebtables.8.in
 	mkdir -p $(DESTDIR)$(@D)
-	sed -e 's/$$(VERSION)/$(PROGVERSION)/' -e 's/$$(DATE)/$(PROGDATE)/' -e 's/$$(LOCKFILE)/$(tmp4)/' <$< >ebtables.8_
+	sed -e 's/[@]PACKAGE_VERSION@/$(PROGVERSION)/' -e 's/[@]PACKAGE_DATE@/$(PROGDATE)/' -e 's/[@]LOCKFILE@/$(tmp4)/' <$< >ebtables.8_
 	install -m 0644 ebtables.8_ $(DESTDIR)$@
 	rm -f ebtables.8_
 

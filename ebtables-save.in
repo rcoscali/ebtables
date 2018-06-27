@@ -8,7 +8,7 @@
 
 use strict;
 my $table;
-my $ebtables = "__EXEC_PATH__/ebtables";
+my $ebtables = "@sbindir@/ebtables";
 my $cnt = "";
 my $version = "1.0";
 my $table_name;
