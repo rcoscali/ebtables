@@ -26,11 +26,11 @@ AM_CPPFLAGS = ${regular_CPPFLAGS} -I${top_srcdir}/include \
 	-DEBTD_PIPE=\"${PIPE}\" -DEBTD_PIPE_DIR=\"${PIPE_DIR}\"
 AM_CFLAGS = ${regular_CFLAGS}
 
-sbin_PROGRAMS = ebtables ebtablesd ebtablesu ebtables-restore
+sbin_PROGRAMS = ebtables-legacy ebtablesd ebtablesu ebtables-legacy-restore
 EXTRA_PROGRAMS = static examples/ulog/test_ulog
 sysconf_DATA = ethertypes
-sbin_SCRIPTS = ebtables-save
-man8_MANS = ebtables.8
+sbin_SCRIPTS = ebtables-legacy-save
+man8_MANS = ebtables-legacy.8
 lib_LTLIBRARIES = libebtc.la
 
 libebtc_la_SOURCES = \
@@ -47,21 +47,22 @@ libebtc_la_SOURCES = \
 	extensions/ebtable_nat.c
 # Make sure ebtables.c can be built twice
 libebtc_la_CPPFLAGS = ${AM_CPPFLAGS}
-ebtables_SOURCES = ebtables-standalone.c
-ebtables_LDADD = libebtc.la
+ebtables_legacy_SOURCES = ebtables-standalone.c
+ebtables_legacy_LDADD = libebtc.la
 ebtablesd_LDADD = libebtc.la
-ebtables_restore_LDADD = libebtc.la
+ebtables_legacy_restore_SOURCES = ebtables-restore.c
+ebtables_legacy_restore_LDADD = libebtc.la
 static_SOURCES = ebtables.c
 static_LDFLAGS = -static
 static_LDADD = libebtc.la
 examples_ulog_test_ulog_SOURCES = examples/ulog/test_ulog.c getethertype.c
 
 daemon: ebtablesd ebtablesu
-exec: ebtables ebtables-restore
+exec: ebtables-legacy ebtables-legacy-restore
 
-CLEANFILES = ebtables-save ebtables.sysv ebtables-config ebtables.8
+CLEANFILES = ebtables-legacy-save ebtables.sysv ebtables-config ebtables-legacy.8
 
-ebtables-save: ebtables-save.in ${top_builddir}/config.status
+ebtables-legacy-save: ebtables-save.in ${top_builddir}/config.status
 	${AM_V_GEN}sed -e 's![@]sbindir@!${sbindir}!g' <$< >$@
 
 ebtables.sysv: ebtables.sysv.in ${top_builddir}/config.status
@@ -70,7 +71,7 @@ ebtables.sysv: ebtables.sysv.in ${top_builddir}/config.status
 ebtables-config: ebtables-config.in ${top_builddir}/config.status
 	${AM_V_GEN}sed -e 's![@]sysconfigdir@!${sysconfigdir}!g' <$< >$@
 
-ebtables.8: ebtables.8.in ${top_builddir}/config.status
+ebtables-legacy.8: ebtables-legacy.8.in ${top_builddir}/config.status
 	${AM_V_GEN}sed -e 's![@]PACKAGE_VERSION!${PACKAGE_VERSION}!g' \
 		-e 's![@]PACKAGE_DATE@!${PROGDATE}!g' \
 		-e 's![@]LOCKFILE@!${LOCKFILE}!g' <$< >$@
