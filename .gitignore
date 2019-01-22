@@ -22,7 +22,6 @@ Makefile.in
 /ebtables-restore
 /ebtables-save
 /ebtables.8
-/ebtables.sysv
 /ebtablesd
 /ebtablesu
 /static
