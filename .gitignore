@@ -17,11 +17,11 @@ Makefile.in
 /libtool
 /stamp-h1
 
-/ebtables
+/ebtables-legacy
 /ebtables-config
-/ebtables-restore
-/ebtables-save
-/ebtables.8
+/ebtables-legacy-restore
+/ebtables-legacy-save
+/ebtables-legacy.8
 /ebtablesd
 /ebtablesu
 /static
