@@ -40,7 +40,7 @@ libebtc_la_SOURCES = \
 	extensions/ebt_mark_m.c extensions/ebt_nat.c extensions/ebt_nflog.c \
 	extensions/ebt_pkttype.c extensions/ebt_redirect.c \
 	extensions/ebt_standard.c extensions/ebt_stp.c extensions/ebt_string.c \
-	extensions/ebt_ulog.c extensions/ebt_vlan.c \
+	extensions/ebt_ulog.c extensions/ebt_vlan.c extensions/ebt_AUDIT.c \
 	extensions/ebtable_broute.c extensions/ebtable_filter.c \
 	extensions/ebtable_nat.c
 # Make sure ebtables.c can be built twice
