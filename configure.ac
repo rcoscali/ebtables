@@ -10,6 +10,9 @@ AC_DISABLE_STATIC
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AM_PROG_LIBTOOL
 
+AC_ARG_VAR([LOCKFILE], [Custom libebtc lockfile path (default: /var/lib/ebtables/lock)])
+AS_IF([test "x$LOCKFILE" = x], [LOCKFILE="/var/lib/ebtables/lock"])
+
 regular_CFLAGS="-Wall -Wunused"
 regular_CPPFLAGS=""
 case "$host" in

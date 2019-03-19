@@ -5,8 +5,6 @@
 PROGNAME = ${PACKAGE_NAME}
 PROGVERSION = ${PACKAGE_VERSION}
 PROGDATE = December\ 2011
-LOCKDIR = /var/lib/ebtables
-LOCKFILE = ${LOCKDIR}/lock
 INITDIR = /etc/rc.d/init.d
 initddir = ${INITDIR}
 sysconfigdir = ${sysconfdir}/sysconfig
@@ -21,7 +19,7 @@ AM_CPPFLAGS = ${regular_CPPFLAGS} -I${top_srcdir}/include \
 	-DPROGVERSION=\"${PACKAGE_VERSION}\" -DPROGNAME=\"${PACKAGE_NAME}\" \
 	-DPROGDATE=\"${PROGDATE}\" \
 	-D_PATH_ETHERTYPES=\"${sysconfdir}/ethertypes\" \
-	-DLOCKFILE=\"${LOCKFILE}\" -DLOCKDIR=\"${LOCKDIR}\" \
+	-DLOCKFILE=\"${LOCKFILE}\" \
 	-DEBTD_ARGC_MAX=${EBTD_ARGC_MAX} -DEBTD_CMDLINE_MAXLN=${EBTD_CMDLINE_MAXLN} \
 	-DEBTD_PIPE=\"${PIPE}\" -DEBTD_PIPE_DIR=\"${PIPE_DIR}\"
 AM_CFLAGS = ${regular_CFLAGS}
