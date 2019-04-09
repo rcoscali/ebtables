@@ -140,12 +140,13 @@ int use_lockfd;
  * or -2 on any other error. */
 static int lock_file()
 {
+	char pathbuf[] = LOCKFILE;
 	int fd, try = 0;
 
 retry:
 	fd = open(LOCKFILE, O_CREAT, 00600);
 	if (fd < 0) {
-		if (try == 1 || mkdir(dirname(LOCKFILE), 00700))
+		if (try == 1 || mkdir(dirname(pathbuf), 00700))
 			return -2;
 		try = 1;
 		goto retry;
