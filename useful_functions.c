@@ -445,7 +445,7 @@ char *ebt_ip6_mask_to_string(const struct in6_addr *msk)
 	int l = ebt_ip6mask_to_cidr(msk);
 	static char buf[51+1];
 
-	if (l == 127)
+	if (l == 128)
 		*buf = '\0';
 	else if (l == -1)
 		sprintf(buf, "/%s", ebt_ip6_to_numeric(msk));
