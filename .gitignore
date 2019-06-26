@@ -18,7 +18,6 @@ Makefile.in
 /stamp-h1
 
 /ebtables-legacy
-/ebtables-config
 /ebtables-legacy-restore
 /ebtables-legacy-save
 /ebtables-legacy.8

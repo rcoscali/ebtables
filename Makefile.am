@@ -58,13 +58,10 @@ examples_ulog_test_ulog_SOURCES = examples/ulog/test_ulog.c getethertype.c
 daemon: ebtablesd ebtablesu
 exec: ebtables-legacy ebtables-legacy-restore
 
-CLEANFILES = ebtables-legacy-save ebtables-config ebtables-legacy.8
+CLEANFILES = ebtables-legacy-save ebtables-legacy.8
 
 ebtables-legacy-save: ebtables-save.in ${top_builddir}/config.status
 	${AM_V_GEN}sed -e 's![@]sbindir@!${sbindir}!g' <$< >$@
-
-ebtables-config: ebtables-config.in ${top_builddir}/config.status
-	${AM_V_GEN}sed -e 's![@]sysconfigdir@!${sysconfigdir}!g' <$< >$@
 
 ebtables-legacy.8: ebtables-legacy.8.in ${top_builddir}/config.status
 	${AM_V_GEN}sed -e 's![@]PACKAGE_VERSION!${PACKAGE_VERSION}!g' \
