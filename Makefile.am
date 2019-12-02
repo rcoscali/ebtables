@@ -64,6 +64,6 @@ ebtables-legacy-save: ebtables-save.in ${top_builddir}/config.status
 	${AM_V_GEN}sed -e 's![@]sbindir@!${sbindir}!g' <$< >$@
 
 ebtables-legacy.8: ebtables-legacy.8.in ${top_builddir}/config.status
-	${AM_V_GEN}sed -e 's![@]PACKAGE_VERSION!${PACKAGE_VERSION}!g' \
+	${AM_V_GEN}sed -e 's![@]PACKAGE_VERSION@!${PACKAGE_VERSION}!g' \
 		-e 's![@]PACKAGE_DATE@!${PROGDATE}!g' \
 		-e 's![@]LOCKFILE@!${LOCKFILE}!g' <$< >$@
