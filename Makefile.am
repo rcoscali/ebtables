@@ -25,7 +25,7 @@ AM_CPPFLAGS = ${regular_CPPFLAGS} -I${top_srcdir}/include \
 AM_CFLAGS = ${regular_CFLAGS}
 
 sbin_PROGRAMS = ebtables-legacy ebtablesd ebtablesu ebtables-legacy-restore
-EXTRA_PROGRAMS = static examples/ulog/test_ulog
+EXTRA_PROGRAMS = allstatic static examples/ulog/test_ulog
 sysconf_DATA = ethertypes
 sbin_SCRIPTS = ebtables-legacy-save
 man8_MANS = ebtables-legacy.8
@@ -52,6 +52,8 @@ ebtables_legacy_restore_SOURCES = ebtables-restore.c
 ebtables_legacy_restore_LDADD = libebtc.la
 static_SOURCES = ebtables-standalone.c $(libebtc_la_SOURCES)
 static_LDFLAGS = -static
+allstatic_SOURCES = $(static_SOURCES)
+allstatic_LDFLAGS = -all-static
 examples_ulog_test_ulog_SOURCES = examples/ulog/test_ulog.c getethertype.c
 
 daemon: ebtablesd ebtablesu
