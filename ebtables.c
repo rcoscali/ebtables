@@ -1086,7 +1086,7 @@ big_iface_length:
 				ebt_print_error2("Unknown argument: '%s'", argv[optind - 1], (char)optopt, (char)c);
 			else if (w == NULL) {
 				if (!strcmp(t->name, "standard"))
-					ebt_print_error2("Unknown argument: don't forget the -t option");
+					ebt_print_error2("Unknown argument: don't forget the -j option");
 				else
 					ebt_print_error2("Target-specific option does not correspond with specified target");
 			}
